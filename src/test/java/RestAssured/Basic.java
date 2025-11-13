@@ -39,14 +39,25 @@ public class Basic {
 		
 		//Update Place
 		String newAddress="Summer walk, Africa";
-		
+
+		String updatePlaceBody = "{\n" +
+		    "  \"place_id\": \"" + placeId + "\",\n" +
+		    "  \"location\": {\n" +
+		    "    \"lat\": -38.383494,\n" +
+		    "    \"lng\": 33.427362\n" +
+		    "  },\n" +
+		    "  \"accuracy\": 50,\n" +
+		    "  \"name\": \"Rahul Shetty Academy\",\n" +
+		    "  \"phone_number\": \"(+91) 983 893 3937\",\n" +
+		    "  \"address\": \"" + newAddress + "\",\n" +
+		    "  \"types\": [\"shoe park\", \"shop\"],\n" +
+		    "  \"website\": \"https://rahulshettyacademy.com\",\n" +
+		    "  \"language\": \"French-IN\",\n" +
+		    "  \"key\": \"qaclick123\"\n" +
+		    "}";
+
 		given().log().all().queryParam("key", "qaclick123").header("Content-Type","application/json")
-		.body("{ \r\n"
-				+ " \"place_id\":\""+placeId+"\", \r\n"
-				+ " \"address\":\""+newAddress+"\", \r\n"
-				+ " \"key\":\"qaclick123\" \r\n"
-				+ " } \r\n"
-				+ "}")
+		.body(updatePlaceBody)
 		.when().put("maps/api/place/update/json")
 		.then().assertThat().log().all().statusCode(200)
 		//.body("msg", equalTo("Address successfully updated"))
@@ -55,7 +66,7 @@ public class Basic {
 		//Get Place
 		
 		String getPlaceResponse=given().log().all().queryParam("key", "qaclick123")
-		.queryParam("place_Id",placeId)
+		.queryParam("place_id",placeId)
 		.when().get("maps/api/place/get/json")
 		.then().assertThat().log().all().statusCode(200).extract().response().asString();
 		
