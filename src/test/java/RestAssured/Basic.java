@@ -51,7 +51,7 @@ public class Basic {
 		.body(updatePlaceBody)
 		.when().put("maps/api/place/update/json")
 		.then().assertThat().log().all().statusCode(200)
-		//.body("msg", equalTo("Address successfully updated"))
+		.body("msg", equalTo("Address successfully updated"))
 		;
 		 
 		//Get Place
